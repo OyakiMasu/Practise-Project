@@ -1,13 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
- <body>
-</body>
-
+<html>
+  <head>
+    <title>Meme Generator</title>
+  </head>
+  <body>
+    <h1>Meme Generator</h1>
+    <form>
+      <label for="top-text">Top Text:</label>
+      <input type="text" id="top-text" name="top-text">
+      <br>
+      <label for="bottom-text">Bottom Text:</label>
+      <input type="text" id="bottom-text" name="bottom-text">
+      <br>
+      <label for="image-url">Image URL:</label>
+      <input type="text" id="image-url" name="image-url">
+      <br>
+      <input type="button" value="Generate Meme" onclick="generateMeme()">
+    </form>
+    <br>
+    <img id="meme-image" src="" alt="Generated Meme">
+    <script>
+      function generateMeme() {
+        // Get the values of the top text, bottom text, and image URL
+        var topText = document.getElementById("top-text").value;
+        var bottomText = document.getElementById("bottom-text").value;
+        var imageUrl = document.getElementById("image-url").value;
+        // Update the src and alt attributes of the meme image
+        document.getElementById("meme-image").src = imageUrl;
+        document.getElementById("meme-image").alt = topText + " " + bottomText;
+        // Add the top and bottom text to the meme image using canvas
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        var img = document.getElementById("meme-image");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        ctx.font = "30px Impact";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.fillText(topText, img.width / 2, 50);
+        ctx.fillText(bottomText, img.width / 2, img.height - 20);
+        document.getElementById("meme-image").src = canvas.toDataURL();
+      }
+    </script>
+  </body>
 </html>
